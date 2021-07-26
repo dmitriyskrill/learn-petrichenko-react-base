@@ -1,15 +1,20 @@
-import React from 'react'
-import PostListItem from '../post-list-item'
-import './post-list.css'
+import React from "react"
+import PostListItem from "../post-list-item"
+import ListGroup from "react-bootstrap/ListGroup"
+import "./post-list.css"
 
-const PostList = () => {
-    return (
-        <ul className="app-list list-group">
-            <PostListItem />
-            <PostListItem />
-            <PostListItem />
-        </ul>
-    )
+const PostList = ({ posts, onDelete, onToggleImportant, onToggleLike }) => {
+  const elements = posts.map(({ id, ...itemProps }) => (
+    <li key={id} className="list-group-item">
+      <PostListItem
+        {...itemProps}
+        onDelete={() => onDelete(id)}
+        onToggleImportant={() => onToggleImportant(id)}
+        onToggleLike={() => onToggleLike(id)}
+      />
+    </li>
+  ))
+  return <ListGroup className="app-list">{elements}</ListGroup>
 }
 
 export default PostList
